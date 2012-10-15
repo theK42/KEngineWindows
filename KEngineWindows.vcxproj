@@ -99,7 +99,7 @@
     <ProjectReference Include="..\KEngine2D\KEngine2D.vcxproj">
       <Project>{ce87ba5a-9702-488d-b351-84df10176776}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Lua\Lua.vcxproj">
+    <ProjectReference Include="..\KEngineCore\Lua\Lua.vcxproj">
       <Project>{162d249d-152e-42ad-9d7c-fc40ca25705b}</Project>
     </ProjectReference>
   </ItemGroup>
