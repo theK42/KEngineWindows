@@ -29,7 +29,7 @@ public:
 	void Update(double fTime);
 	bool IsKeyDown(KEngineCore::StringHash keyName);
 	KEngineCore::LuaScheduler * GetLuaScheduler() const;
-	virtual void RegisterLibrary(lua_State * luaState, char const * name = "DirectInput") override;
+	virtual void RegisterLibrary(lua_State * luaState, char const * name = "input") override;
 private:
 	void AddKeybinding(DirectInputKeyBinding * binding);
 	void RemoveKeybinding(DirectInputKeyBinding * binding);
@@ -47,6 +47,7 @@ private:
 	std::vector<KeyBindingList::iterator>	mSelfClearedBindings;
 	double									mRepeatFrequency;
 	int										mCurrentTime;
+	char									mKeyboardState[256];
 
 	friend class DirectInputKeyBinding;
 };
@@ -63,10 +64,10 @@ public:
 	DirectInputKeyBinding();
 	~DirectInputKeyBinding();
 
-	void Init(DirectInput * timer, KEngineCore::StringHash keyName, KeyBindingType type, std::function<void ()> callback, std::function<void()> cancelCallback = nullptr); //templatize later for memory management
+	void Init(DirectInput * inputSystem, KEngineCore::StringHash keyName, KeyBindingType type, std::function<void ()> callback, std::function<void()> cancelCallback = nullptr); //templatize later for memory management
 	void Deinit();
 
-	void TimeElapsed();
+	void Fire();
 	void Cancel();
 
 private:
