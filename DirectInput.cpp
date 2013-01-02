@@ -231,6 +231,7 @@ static int deleteBinding(lua_State * luaState) {
 static int isKeyDown(lua_State * luaState) {
 	KEngineWindows::DirectInput * inputSystem = (KEngineWindows::DirectInput *)lua_touserdata(luaState, lua_upvalueindex(1));
 	KEngineCore::StringHash keyName(luaL_checkstring(luaState, 1));
+	lua_checkstack(luaState, 1);
 	lua_pushboolean(luaState, inputSystem->IsKeyDown(keyName));
 	return 1;
 }
@@ -248,10 +249,12 @@ static const struct luaL_Reg inputLibrary [] = {
 };
 
 static int luaopen_input (lua_State * luaState) {
+	lua_checkstack(luaState, 2);
 	luaL_newlibtable(luaState, inputLibrary);
 	lua_pushvalue(luaState, lua_upvalueindex(1));
 	luaL_setfuncs(luaState, inputLibrary, 1);
-
+	
+	lua_checkstack(luaState, 3);
 	luaL_newmetatable(luaState, "KEngineWindows.DirectInputKeyBinding");
 	lua_pushstring(luaState, "__gc");
 	lua_pushcfunction(luaState, deleteBinding);
