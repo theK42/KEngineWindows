@@ -6,7 +6,7 @@
 
 using KEngineCore::StringHash;
 
-static class KeyMap : public std::map<KEngineCore::StringHash, int>
+class KeyMap : public std::map<KEngineCore::StringHash, int>
 {
 public:
 	KeyMap() {
